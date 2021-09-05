@@ -17,6 +17,7 @@ func Start(config *Config) error {
 
 	store := sqlstore.New(db)
 	sessionStore := sessions.NewCookieStore([]byte(config.SessionKey))
+	sessionStore.Options.MaxAge = 604800
 	server := newServer(store, sessionStore)
 
 	return http.ListenAndServe(config.BindAddr, server)
